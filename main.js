@@ -119,7 +119,7 @@ async function main() {
     };
 
     // Load STL file
-    modelData = await loadSTLFile('/source/punisher.stl');
+    modelData = await loadSTLFile('punisher.stl');
     if (modelData) {
         modelData.vertices = normalizeModel(modelData.vertices);
         const buffers = initBuffers(gl, modelData.vertices, modelData.normals);
