@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+    <script src="./main.js" type="module"></script>
+    <script>
+        function toggleAudio() {
+            const audio = document.getElementById('audioPlayer');
+            const button = document.getElementById('playButton');
+            
+            if (audio.paused) {
+                audio.play();
+                button.textContent = 'Pause';
+            } else {
+                audio.pause();
+                button.textContent = 'Play';
+            }
+        }
+
+        // Wait for the DOM to load
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('audioPlayer');
+            const volumeSlider = document.getElementById('volumeSlider');
+            
+            // Set initial volume
+            audio.volume = volumeSlider.value;
+            
+            // Update volume when slider changes
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+        });
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <audio id="audioPlayer" preload="auto" loop autoplay>
+        <source src="666.mp3" type="audio/mpeg">
+    </audio>
+    <div id="audioControls" style="position: fixed; bottom: 20px; left: 20px; display: flex; gap: 10px;">
+        <button onclick="toggleAudio()" id="playButton" style="padding: 10px; background: rgba(0,0,0,0.7); color: white; border: 1px solid #666; cursor: pointer;">Play</button>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.7" style="width: 400px;">
+    </div>
+</body>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;  /* Prevent scrollbars */
+        background: black;
+    }
+
+    #canvas {
+        position: fixed;  /* Fix canvas to viewport */
+        top: 0;
+        left: 0;
+        width: 100vw;    /* Full viewport width */
+        height: 100vh;   /* Full viewport height */
+        z-index: -1;     /* Place behind other elements */
+        border: none;    /* Remove border */
+    }
+
+    #audioControls {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1;      /* Ensure controls stay above canvas */
+    }
+</style>
+</html>
